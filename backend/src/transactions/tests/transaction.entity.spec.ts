@@ -11,4 +11,5 @@ describe('Transaction Entity', () => {
     expect(transaction.amount).toBeGreaterThan(0);
     expect(transaction.type).toMatch(/deposit|withdraw|transfer/);
   });
+  //TODO: adicionar mais testes 
 });

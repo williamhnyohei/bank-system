@@ -3,7 +3,6 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
 
-// Definindo um tipo para o repositório mockado com os métodos necessários
 type MockRepository<T = any> = {
   save: jest.Mock;
   update: jest.Mock;
@@ -77,7 +76,6 @@ describe('User Entity', () => {
   });
 
   it('não deve permitir criar usuários com o mesmo email', async () => {
-    // Simula um erro caso já exista um usuário com o mesmo e-mail
     userRepository.save.mockRejectedValue(new Error('Email já cadastrado'));
 
     await expect(

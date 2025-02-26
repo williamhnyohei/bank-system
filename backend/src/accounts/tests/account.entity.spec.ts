@@ -28,7 +28,7 @@ describe('Account Entity', () => {
     expect(account.balance).toBe(700);
   });
 
-  it('não deve permitir saque maior que o saldo disponível', () => { //podemos mudar isso para certas contas para ter direito ao cheque especial 
+  it('não deve permitir saque maior que o saldo disponível', () => { 
     const account = new Account();
     account.balance = 1000;
 
@@ -41,4 +41,6 @@ describe('Account Entity', () => {
 
     expect(account.balance).toBe(1000); 
   });
+
+  //TODO: criar teste de cheque especial e cartão de crédito 
 });
