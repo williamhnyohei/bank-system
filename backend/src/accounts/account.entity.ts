@@ -3,6 +3,7 @@ import { User } from '../users/user.entity';
 import { Transaction } from '../transactions/transaction.entity';
 import { OneToMany } from 'typeorm';
 import { Card } from '../card/card.entity';
+import { Branch } from '../branches/branch.entity';
 
 @Entity()
 export class Account {
@@ -20,5 +21,7 @@ export class Account {
 
   @OneToMany(() => Card, (card) => card.account)
   cards: Card[];
-}
 
+  @ManyToOne(() => Branch, (branch) => branch.accounts)
+  branch: Branch;
+}
