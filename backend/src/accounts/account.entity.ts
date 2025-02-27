@@ -4,6 +4,8 @@ import { Transaction } from '../transactions/transaction.entity';
 import { OneToMany } from 'typeorm';
 import { Card } from '../card/card.entity';
 import { Branch } from '../branches/branch.entity';
+import { Investment } from '../investments/investment.entity';
+import { BillPayment } from '../bill_payments/bill_payment.entity';
 
 @Entity()
 export class Account {
@@ -24,4 +26,10 @@ export class Account {
 
   @ManyToOne(() => Branch, (branch) => branch.accounts)
   branch: Branch;
+
+  @OneToMany(() => Investment, (investment) => investment.account)
+  investments: Investment[];
+
+  @OneToMany(() => BillPayment, (billPayment) => billPayment.account)
+  billPayments: BillPayment[];
 }
