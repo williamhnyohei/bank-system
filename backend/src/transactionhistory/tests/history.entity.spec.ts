@@ -1,11 +1,12 @@
 import { TransactionHistory } from '../history.entity';
 import { Account } from '../../accounts/account.entity';
+import { TransactionType } from '../transaction-type.enum';
 
 describe('TransactionHistory Entity', () => {
   it('deve criar um histórico de transação válido', () => {
     const history = new TransactionHistory();
     history.id = 1;
-    history.type = 'deposit';
+    history.type = TransactionType.DEPOSIT;
     history.amount = 1000;
 
     const account = new Account();

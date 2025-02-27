@@ -1,22 +1,32 @@
 import { Customer } from '../customer.entity';
 import { User } from '../../users/user.entity';
 import { Account } from '../../accounts/account.entity';
+import { CreateCustomerDto } from '../../customer/DTOs/create-customer.dto';
+import { validate } from 'class-validator';
 
 describe('Customer Entity', () => {
-  it('deve criar um cliente válido', () => {
-    const customer = new Customer();
-    customer.cpf = '123.456.789-00';
-    customer.address = 'Rua Exemplo, 123';
-    customer.phoneNumber = '(11) 99999-9999';
+  it('deve criar um cliente válido com DTO', async () => {
+    const createCustomerDto = new CreateCustomerDto();
+    createCustomerDto.fullName = 'João Silva';
+    createCustomerDto.cpf = '52998224725'; // CPF válido
+    createCustomerDto.address = 'Rua Exemplo, 123';
+    createCustomerDto.phoneNumber = '(11) 99999-9999';
+  
+    // Validando o DTO antes de criar a entidade
+    const errors = await validate(createCustomerDto);
+    console.log(errors); // 👉 Adiciona essa linha para ver os erros de validação
+    expect(errors.length).toBe(0); // Não deve haver erros
+  });
+  
 
-    const user = new User();
-    customer.user = user;
+  it('deve falhar ao validar um DTO inválido', async () => {
+    const createCustomerDto = new CreateCustomerDto();
+    createCustomerDto.fullName = ''; // Inválido (vazio)
+    createCustomerDto.cpf = '123'; // CPF inválido
+    createCustomerDto.address = '';
+    createCustomerDto.phoneNumber = '';
 
-    const account = new Account();
-    customer.accounts = [account];
-
-    expect(customer).toBeDefined();
-    expect(customer.cpf).toBe('123.456.789-00');
-    expect(customer.accounts.length).toBe(1);
+    const errors = await validate(createCustomerDto);
+    expect(errors.length).toBeGreaterThan(0); // Deve haver erros de validação
   });
 });

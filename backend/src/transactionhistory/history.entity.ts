@@ -1,5 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn } from 'typeorm';
 import { Account } from '../accounts/account.entity';
+import { TransactionType } from './transaction-type.enum'; // Importa o Enum
 
 @Entity()
 export class TransactionHistory {
@@ -9,8 +10,8 @@ export class TransactionHistory {
   @ManyToOne(() => Account, (account) => account.transactionHistory)
   account: Account;
 
-  @Column()
-  type: 'deposit' | 'withdraw' | 'transfer' | 'loan-payment';
+  @Column({ type: 'enum', enum: TransactionType }) // 🟢 Usa o Enum no banco de dados
+  type: TransactionType;
 
   @Column('decimal', { precision: 10, scale: 2 })
   amount: number;
