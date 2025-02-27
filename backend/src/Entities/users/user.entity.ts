@@ -1,6 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Account } from '../accounts/account.entity';
 import { IsEmail, IsNotEmpty } from 'class-validator';
+import { OneToOne } from 'typeorm';
+import { Customer } from '../customer/customer.entity';
 
 @Entity()
 export class User {
@@ -20,4 +22,7 @@ export class User {
 
   @OneToMany(() => Account, (account) => account.user)
   accounts: Account[];
+
+  @OneToOne(() => Customer, (customer) => customer.user)
+  customer: Customer;
 }
