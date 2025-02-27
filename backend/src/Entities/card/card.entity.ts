@@ -16,6 +16,12 @@ export class Card {
   @Column()
   cvv: string;
 
+  @Column({ type: 'varchar', length: 20 })
+  type: string; // 'credit' ou 'debit'
+
+  @Column({ type: 'decimal', precision: 10, scale: 2, default: 0 })
+  limit: number;
+
   @ManyToOne(() => Account, (account) => account.cards)
   account: Account;
 }
