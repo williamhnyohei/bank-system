@@ -16,11 +16,11 @@ export class BillPayment {
   dueDate: Date; // Data de vencimento
 
   @Column({ default: false })
-  isPaid: boolean; // Indica se a conta já foi paga
+  isPaid: boolean;
 
   @Column({ type: 'timestamp', nullable: true })
-  paymentDate: Date | null; // Permitir que seja null
+  paymentDate: Date;
 
   @ManyToOne(() => Account, (account) => account.billPayments)
-  account: Account; // Conta bancária do usuário que realizou o pagamento
+  account: Account;
 }
