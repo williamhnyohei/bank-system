@@ -3,7 +3,7 @@ import { User } from '../users/user.entity';
 import { Account } from '../accounts/account.entity';
 import { Loan } from '../loan/loan.entity';
 import { IsNotEmpty, IsString, Length, Matches, Validate } from 'class-validator';
-import { CpfValidator } from '../validators/cpf.validator';
+import { CpfValidator } from './validator/cpf.validator';
 
 @Entity()
 export class Customer {

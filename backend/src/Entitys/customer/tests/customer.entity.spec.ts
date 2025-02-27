@@ -1,7 +1,7 @@
 import { Customer } from '../customer.entity';
 import { User } from '../../users/user.entity';
 import { Account } from '../../accounts/account.entity';
-import { CreateCustomerDto } from '../../customer/DTOs/create-customer.dto';
+import { CreateCustomerDto } from '../../../DTOs/customer.dto';
 import { validate } from 'class-validator';
 
 describe('Customer Entity', () => {
@@ -10,7 +10,7 @@ describe('Customer Entity', () => {
     createCustomerDto.fullName = 'João Silva';
     createCustomerDto.cpf = '52998224725'; // CPF válido
     createCustomerDto.address = 'Rua Exemplo, 123';
-    createCustomerDto.phoneNumber = '(11) 99999-9999';
+    createCustomerDto.phoneNumber = '11999999999';
   
     // Validando o DTO antes de criar a entidade
     const errors = await validate(createCustomerDto);
