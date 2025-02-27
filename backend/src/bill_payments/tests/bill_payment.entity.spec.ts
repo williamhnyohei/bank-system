@@ -14,24 +14,24 @@ describe('BillPayment Entity', () => {
       ...dto,
       id: Math.floor(Math.random() * 1000),
       description: dto.description || 'Descrição Padrão',
-      paymentDate: new Date('2024-01-01'),
+      amount: dto.amount ?? 100, // Valor padrão para evitar undefined
+      dueDate: dto.dueDate || new Date(),
+      isPaid: dto.isPaid ?? false,
+      paymentDate: dto.paymentDate || new Date('2024-01-01'),
+      account: dto.account || new Account(),
     })),
     save: jest.fn().mockImplementation(async (billPayment: Partial<BillPayment>) => {
-      const newBillPayment = { 
-        ...billPayment, 
+      const newBillPayment: BillPayment = {
+        ...billPayment,
         id: Math.floor(Math.random() * 1000),
         description: billPayment.description || 'Descrição Padrão',
-        paymentDate: billPayment.paymentDate ? new Date(billPayment.paymentDate) : new Date('2024-01-01'),
+        amount: billPayment.amount ?? 100, // Evita undefined
+        dueDate: billPayment.dueDate || new Date(),
+        isPaid: billPayment.isPaid ?? false,
+        paymentDate: billPayment.paymentDate || new Date('2024-01-01'),
+        account: billPayment.account || new Account(),
       };
-      mockDatabase.push({
-        id: newBillPayment.id || Math.floor(Math.random() * 1000),
-        description: newBillPayment.description || 'Descrição Padrão',
-        amount: newBillPayment.amount ?? 0,
-        dueDate: newBillPayment.dueDate || new Date(),
-        isPaid: newBillPayment.isPaid ?? false,
-        paymentDate: newBillPayment.paymentDate || new Date('2024-01-01'),
-        account: newBillPayment.account || new Account(),
-      });      
+      mockDatabase.push(newBillPayment);
       return newBillPayment;
     }),
     findOne: jest.fn().mockImplementation((query) => {
@@ -100,6 +100,29 @@ describe('BillPayment Entity', () => {
     expect(savedBillPayment.isPaid).toBe(false);
     expect(savedBillPayment.paymentDate).toBeInstanceOf(Date);
     expect(savedBillPayment.account).toBeInstanceOf(Account);
+  });
+
+  it('should find all bill payments', async () => {
+    await billPaymentRepository.save({
+      description: 'Internet',
+      amount: 120.0,
+      dueDate: new Date('2024-03-15'),
+      isPaid: false,
+      paymentDate: new Date('2024-01-01'),
+      account: new Account(),
+    });
+
+    await billPaymentRepository.save({
+      description: 'Cartão de Crédito',
+      amount: 2000.0,
+      dueDate: new Date('2024-03-20'),
+      isPaid: true,
+      paymentDate: new Date('2024-03-18'),
+      account: new Account(),
+    });
+
+    const billPayments = await billPaymentRepository.find();
+    expect(billPayments.length).toBe(2);
   });
 
   it('should find a bill payment by description and account', async () => {
