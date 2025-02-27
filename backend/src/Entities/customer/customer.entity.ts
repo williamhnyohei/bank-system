@@ -35,6 +35,4 @@ export class Customer {
   @OneToMany(() => Account, (account) => account.customer)
   accounts: Account[];
 
-  @OneToMany(() => Loan, (loan) => loan.customer)
-  loans: Loan[];
 }

@@ -10,18 +10,18 @@ class TestCpfDto {
 describe('CpfValidator', () => {
   it('deve aceitar um CPF válido', async () => {
     const dto = new TestCpfDto();
-    dto.cpf = '52998224725'; // CPF válido ✅
+    dto.cpf = '52998224725'; 
 
 
     const errors = await validate(dto);
-    console.log(errors); // 👉 Verifica se há erros
+    console.log(errors); 
 
     expect(errors.length).toBe(0);
   });
 
   it('deve rejeitar um CPF inválido', async () => {
     const dto = new TestCpfDto();
-    dto.cpf = '12345678900'; // CPF inválido
+    dto.cpf = '12345678900'; 
 
     const errors = await validate(dto);
     console.log(errors);
@@ -31,7 +31,7 @@ describe('CpfValidator', () => {
 
   it('deve rejeitar um CPF com caracteres inválidos', async () => {
     const dto = new TestCpfDto();
-    dto.cpf = 'abc.def.ghi-jk'; // Formato completamente errado
+    dto.cpf = 'abc.def.ghi-jk'; 
 
     const errors = await validate(dto);
     console.log(errors);
@@ -41,7 +41,7 @@ describe('CpfValidator', () => {
 
   it('deve rejeitar um CPF com menos de 11 dígitos', async () => {
     const dto = new TestCpfDto();
-    dto.cpf = '12345'; // Incompleto
+    dto.cpf = '12345'; 
 
     const errors = await validate(dto);
     console.log(errors);
@@ -51,7 +51,7 @@ describe('CpfValidator', () => {
 
   it('deve rejeitar um CPF com todos os números iguais', async () => {
     const dto = new TestCpfDto();
-    dto.cpf = '11111111111'; // CPF inválido porque todos os dígitos são iguais
+    dto.cpf = '11111111111';
 
     const errors = await validate(dto);
     console.log(errors);

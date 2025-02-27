@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsString, Length, Matches, Validate } from 'class-validator';
-import { CpfValidator } from '../Entitys/customer/validator/cpf.validator';
+import { CpfValidator } from '../Entities/customer/validator/cpf.validator';
 
 export class CreateCustomerDto {
   @IsNotEmpty({ message: 'O nome completo é obrigatório' })

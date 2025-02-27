@@ -7,9 +7,6 @@ export class Loan {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => Customer, (customer) => customer.loans)
-  customer: Customer;
-
   @ManyToOne(() => Account, (account) => account.loans)
   account: Account;
 
