@@ -1,8 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'typeorm';
 import { User } from '../users/user.entity';
 import { Transaction } from '../transactions/transaction.entity';
-import { OneToMany } from 'typeorm';
 import { Card } from '../card/card.entity';
+import { Customer } from '../customer/customer.entity';
+import { Loan } from '../loan/loan.entity';
+import { TransactionHistory } from '../transactionhistory/history.entity';
 
 @Entity()
 export class Account {
@@ -20,5 +22,20 @@ export class Account {
 
   @OneToMany(() => Card, (card) => card.account)
   cards: Card[];
+
+  @ManyToOne(() => Customer, (customer) => customer.accounts)
+  customer: Customer;
+
+  @OneToMany(() => Loan, (loan) => loan.account)
+  loans: Loan[];
+
+  @OneToMany(() => TransactionHistory, (history) => history.account)
+  transactionHistory: TransactionHistory[];
+
+  @Column({ type: 'decimal', precision: 10, scale: 2, default: 0 })
+  overdraftLimit: number;
+
+  @OneToMany(() => Card, (card) => card.account)
+  card: Card[];
 }
 
