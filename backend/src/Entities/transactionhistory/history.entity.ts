@@ -1,6 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn } from 'typeorm';
 import { Account } from '../accounts/account.entity';
 import { TransactionType } from '../../enum/transactiontype.enum';
+import { OneToMany } from 'typeorm';
+import { Transaction } from '../transactions/transaction.entity';
 
 @Entity()
 export class TransactionHistory {
@@ -21,4 +23,10 @@ export class TransactionHistory {
 
   @CreateDateColumn()
   timestamp: Date;
+
+  @Column()
+  description: string;
+
+  @OneToMany(() => Transaction, (transaction) => transaction.history)
+  transactions: Transaction[];
 }
