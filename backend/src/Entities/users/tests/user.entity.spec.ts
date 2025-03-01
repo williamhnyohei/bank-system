@@ -1,4 +1,4 @@
-import { User } from '../user.entity';
+import { User_bank } from '../user.entity';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
@@ -10,14 +10,14 @@ type MockRepository<T = any> = {
   delete: jest.Mock;
 };
 
-describe('User Entity', () => {
-  let userRepository: MockRepository<User>;
+describe('User_bank Entity', () => {
+  let userRepository: MockRepository<User_bank>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         {
-          provide: getRepositoryToken(User),
+          provide: getRepositoryToken(User_bank),
           useValue: {
             save: jest.fn().mockImplementation((user) => Promise.resolve(user)),
             update: jest.fn(),
@@ -29,11 +29,11 @@ describe('User Entity', () => {
     }).compile();
 
     // Aqui garantimos que userRepository possui os métodos definidos
-    userRepository = module.get<MockRepository<User>>(getRepositoryToken(User));
+    userRepository = module.get<MockRepository<User_bank>>(getRepositoryToken(User_bank));
   });
 
   it('deve criar um usuário corretamente', async () => {
-    const user = new User();
+    const user = new User_bank();
     user.name = 'Caio';
     user.email = 'caio@email.com';
     user.password = 'hashedPassword123';
@@ -46,7 +46,7 @@ describe('User Entity', () => {
   });
 
   it('não deve criar usuário com email inválido', async () => {
-    const user = new User();
+    const user = new User_bank();
     user.name = 'Caio';
     user.email = 'email_invalido';
     user.password = 'hashedPassword123';
@@ -58,7 +58,7 @@ describe('User Entity', () => {
   });
 
   it('deve armazenar a senha como hash', async () => {
-    const user = new User();
+    const user = new User_bank();
     user.password = 'minhaSenhaSegura';
 
     const salt = await bcrypt.genSalt(10);
@@ -68,7 +68,7 @@ describe('User Entity', () => {
   });
 
   it('deve verificar se a senha está correta', async () => {
-    const user = new User();
+    const user = new User_bank();
     user.password = await bcrypt.hash('senha123', 10);
 
     const isMatch = await bcrypt.compare('senha123', user.password);
