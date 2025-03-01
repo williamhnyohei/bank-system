@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'typeorm';
-import { User } from '../users/user.entity';
+import { User_bank } from '../users/user.entity';
 import { Transaction } from '../transactions/transaction.entity';
 import { Card } from '../card/card.entity';
 import { Branch } from '../branches/branch.entity';
@@ -20,8 +20,8 @@ export class Account {
   @Column({ type: 'decimal', precision: 10, scale: 2, default: 0 })
   overdraftLimit: number;
 
-  @ManyToOne(() => User, (user) => user.accounts)
-  user: User;
+  @ManyToOne(() => User_bank, (user) => user.accounts)
+  user: User_bank;
 
   @ManyToOne(() => Customer, (customer) => customer.accounts)
   customer: Customer;
