@@ -1,13 +1,12 @@
+## 🔗 **Tarefa**  
+[Link da tarefa](colar aqui o link)
+
+---
+
 ## ✨ **Descrição**  
 > - **O que foi alterado?**  
 > - **Por que essa mudança é necessária?**  
 > - **Quais problemas ela resolve?**  
-
----
-
-## 🔗 **Issue/Tarefa**  
-> - Closes #XXX  
-> - Relacionado a #XXX  
 
 ---
 
@@ -35,11 +34,9 @@ npm run dev  # ou yarn dev
 - [ ] Código segue os padrões do projeto.  
 - [ ] Testado localmente.  
 - [ ] Sem warnings/logs desnecessários.  
-- [ ] Documentação atualizada (se necessário).  
+- [ ] Documentação do jira atualizada (se necessário). 
 
 ---
 
 ## 📸 **Evidências (se aplicável)**  
-| Antes  | Depois |
-|--------|--------|
-| _Imagem/GIF_ | _Imagem/GIF_ |
+(colocar printscreen ou vídeo)
