@@ -1,0 +1,21 @@
+# Usa a imagem oficial do Node.js como base
+FROM node:18-alpine
+
+# Define o diretório de trabalho dentro do container
+WORKDIR /app
+
+# Copia package.json e package-lock.json para instalar dependências
+COPY package.json package-lock.json ./
+
+RUN npm install
+
+# Copia o restante da aplicação
+COPY . .
+
+# (Removemos a linha COPY .env .env pois usaremos env_file no docker-compose)
+
+# Expõe a porta que o NestJS usa
+EXPOSE 3000
+
+# Comando para iniciar a aplicação (modo dev)
+CMD ["npm", "run", "start:dev"]

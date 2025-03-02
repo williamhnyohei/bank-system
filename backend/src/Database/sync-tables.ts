@@ -1,3 +1,7 @@
+import { webcrypto } from 'crypto';
+if (!(globalThis as any).crypto) {
+  (globalThis as any).crypto = webcrypto;
+}
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from '../APPs/app.module';
 import { DataSource } from 'typeorm';
