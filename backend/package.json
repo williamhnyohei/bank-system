@@ -18,7 +18,9 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "sync:tables": "ts-node src/Database/sync-tables.ts"
+    "sync:tables": "ts-node src/Database/sync-tables.ts",
+    "clear:database": "ts-node src/Database/clear-database.ts",
+    "populate10:database": "ts-node src/Database/Seeds/seedToPopulate10.ts"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
