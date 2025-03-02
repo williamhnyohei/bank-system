@@ -1,5 +1,5 @@
 import { Customer } from '../customer.entity';
-import { User } from '../../users/user.entity';
+import { User_bank } from '../../users/user.entity';
 import { Account } from '../../accounts/account.entity';
 import { CreateCustomerDto } from '../../../DTOs/customer.dto';
 import { validate } from 'class-validator';

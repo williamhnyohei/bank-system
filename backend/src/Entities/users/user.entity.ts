@@ -5,7 +5,7 @@ import { OneToOne } from 'typeorm';
 import { Customer } from '../customer/customer.entity';
 
 @Entity()
-export class User {
+export class User_bank {
   @PrimaryGeneratedColumn()
   id: number;
 

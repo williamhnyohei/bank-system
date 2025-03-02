@@ -1,6 +1,6 @@
 import { TransactionHistory } from '../history.entity';
 import { Account } from '../../accounts/account.entity';
-import { TransactionType } from '../../../enum/transactiontype.enum';
+import { TransactionType } from '../../../Enum/transactiontype.enum';
 
 describe('TransactionHistory Entity', () => {
   it('deve criar um histórico de transação válido', () => {
