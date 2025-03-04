@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, OneToMany } from 'typeorm';
 import { Account } from '../accounts/account.entity';
+import { Transaction } from '../transactions/transaction.entity';
 
 @Entity()
 export class BillPayment {
@@ -23,4 +24,7 @@ export class BillPayment {
 
   @ManyToOne(() => Account, (account) => account.billPayments)
   account: Account;
+
+  @OneToMany(() => Transaction, (transaction) => transaction.billPayment)
+  transactions: Transaction[]; // Relacionamento com múltiplas transações
 }

@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, OneToMany } from 'typeorm';
 import { Account } from '../accounts/account.entity';
+import { Transaction } from '../transactions/transaction.entity';
 
 @Entity()
 export class Investment {
@@ -26,4 +27,7 @@ export class Investment {
 
   @ManyToOne(() => Account, (account) => account.investments)
   account: Account; // Conta do usuário que fez o investimento
+
+  @OneToMany(() => Transaction, (transaction) => transaction.investment)
+  transactions: Transaction[]; // Transações associadas ao investimento
 }

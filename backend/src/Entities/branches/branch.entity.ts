@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Account } from '../accounts/account.entity';
-
+import { Transaction } from '../transactions/transaction.entity';
 @Entity()
 export class Branch {
   @PrimaryGeneratedColumn()
@@ -23,4 +23,7 @@ export class Branch {
 
   @OneToMany(() => Account, (account) => account.branch)
   accounts: Account[];
+
+  @OneToMany(() => Transaction, (transaction) => transaction.branch)
+  transactions: Transaction[];
 }
