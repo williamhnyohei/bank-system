@@ -1,0 +1,4 @@
+uvicorn
+pydantic
+sqlalchemy
+asyncpg
