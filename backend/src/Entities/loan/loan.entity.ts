@@ -1,6 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, OneToMany } from 'typeorm';
 import { Customer } from '../customer/customer.entity';
 import { Account } from '../accounts/account.entity';
+import { Transaction } from '../transactions/transaction.entity';
 
 @Entity()
 export class Loan {
@@ -27,4 +28,7 @@ export class Loan {
 
   @Column({ type: 'date' })  
   dueDate: Date;
+
+  @OneToMany(() => Transaction, (transaction) => transaction.loan)
+  transactions: Transaction[];
 }
