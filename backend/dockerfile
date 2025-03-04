@@ -12,7 +12,6 @@ RUN npm install
 # Copia o restante da aplicação
 COPY . .
 
-
 # Expõe a porta que o NestJS usa
 EXPOSE 3000
 
