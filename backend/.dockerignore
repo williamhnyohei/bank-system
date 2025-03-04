@@ -1,0 +1,13 @@
+# Ignorar dependências instaladas
+node_modules
+dist
+
+# Ignorar arquivos de configuração locais
+npm-debug.log
+yarn-error.log
+.DS_Store
+
+# Ignorar arquivos do editor
+.vscode
+.idea
+*.swp

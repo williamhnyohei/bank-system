@@ -1,3 +1,7 @@
+import { webcrypto } from 'crypto';
+if (!(globalThis as any).crypto) {
+  (globalThis as any).crypto = webcrypto;
+}
 import { DataSource } from 'typeorm';
 import { User_bank } from '../Entities/users/user.entity';
 import { Account } from '../Entities/accounts/account.entity';

@@ -1,3 +1,4 @@
+import './shim-crypto';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './APPs/app.module';
 
