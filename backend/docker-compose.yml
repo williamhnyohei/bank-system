@@ -37,5 +37,21 @@ services:
     working_dir: /app
     command: npm run start:dev
 
+  fastapi-services:
+    build:
+      context: ./microservices/fastapi-services
+      dockerfile: Dockerfile
+    container_name: bank_fastapi
+    restart: always
+    depends_on:
+      - db
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./microservices/fastapi-services:/app
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
 volumes:
   postgres_data:
