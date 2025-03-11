@@ -54,7 +54,6 @@ async function seedDatabase() {
   for (let i = 1; i <= 10; i++) {
     const customer = new Customer();
     customer.fullName = `Cliente ${i}`;
-    customer.cpf = generateValidCPF();
     customer.address = `Rua Exemplo, ${i}`;
     customer.phoneNumber = `(11) 90000-000${i}`;
     await dataSource.manager.save(customer);
@@ -66,7 +65,7 @@ async function seedDatabase() {
   const users: User_bank[] = [];
   for (let i = 1; i <= 10; i++) {
     const user = new User_bank();
-    user.name = `user${i}`;
+    user.cpf = `512.324.345-3${i}`;
     user.email = `user${i}@example.com`;
     user.password = `password${i}`;
     user.customer = customers[i - 1];
