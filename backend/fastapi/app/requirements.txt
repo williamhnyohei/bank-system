@@ -1,7 +1,0 @@
-fastapi
-uvicorn
-sqlalchemy
-asyncpg
-psycopg2
-pydantic
-python-dotenv
