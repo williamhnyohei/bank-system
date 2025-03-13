@@ -27,7 +27,7 @@ import {
     }
   
     @Get(':id')
-    findOne(@Param('id', ParseIntPipe) id: string): Promise<User_bank> {
+    findOne(@Param('id') id: string): Promise<User_bank> {
       return this.userService.findOne(id);
     }
   
