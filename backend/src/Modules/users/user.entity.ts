@@ -1,7 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, OneToOne } from 'typeorm';
 import { Account } from '../accounts/account.entity';
 import { IsNotEmpty, IsEmail, IsString, Length, Matches, Validate } from 'class-validator';
-import { OneToOne } from 'typeorm';
 import { Customer } from '../customer/customer.entity';
 import { CpfValidator } from '../../Utils/cpf.validator';
 
@@ -25,9 +24,9 @@ export class User_bank {
   @Column()
   password: string;
 
-  @OneToMany(() => Account, (account) => account.user)
+  @OneToMany(() => Account, (account) => account.user, { cascade: true, onDelete: 'CASCADE' })
   accounts: Account[];
 
-  @OneToOne(() => Customer, (customer) => customer.user)
+  @OneToOne(() => Customer, (customer) => customer.user, { cascade: true, onDelete: 'CASCADE' })
   customer: Customer;
 }
