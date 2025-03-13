@@ -11,6 +11,7 @@ import {
   import { UserService } from './user.service';
   import { CreateUserDto } from './dtos/create-user.dto';
   import { User_bank } from './user.entity';
+  import { ParseUUIDPipe } from '@nestjs/common';
   
   @Controller('users')
   export class UserController {
@@ -27,20 +28,20 @@ import {
     }
   
     @Get(':id')
-    findOne(@Param('id') id: string): Promise<User_bank> {
+    findOne(@Param('id', new ParseUUIDPipe()) id: string): Promise<User_bank> {
       return this.userService.findOne(id);
     }
   
     @Patch(':id') //recebe id, muda algum dado da linha e retorna a linha alterada
     update(
-      @Param('id', ParseIntPipe) id: string,
+      @Param('id', new ParseUUIDPipe()) id: string,
       @Body() updateData: Partial<User_bank>,
     ): Promise<User_bank> {
       return this.userService.update(id, updateData);
     }
   
     @Delete(':id')
-    remove(@Param('id', ParseIntPipe) id: string): Promise<void> {
+    remove(@Param('id', new ParseUUIDPipe()) id: string): Promise<void> {
       return this.userService.remove(id);
     }
   }
