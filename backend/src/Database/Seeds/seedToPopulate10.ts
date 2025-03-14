@@ -35,6 +35,49 @@ async function seedDatabase() {
   await dataSource.initialize();
   console.log('📌 Conectado ao banco de dados.');
 
+  await dataSource.query(`
+    TRUNCATE TABLE 
+      "transaction_history", 
+      "transaction", 
+      "bill_payment", 
+      "loan", 
+      "investment", 
+      "card", 
+      "account", 
+      "user_bank", 
+      "customer", 
+      "branch" 
+    CASCADE;
+  `);
+  console.log('⚠️ Todas as tabelas foram truncadas com CASCADE.');  
+
+  // 🔹 Criar Usuários e Clientes corretamente
+  const users: User_bank[] = [];
+  const customers: Customer[] = [];
+
+  for (let i = 1; i <= 10; i++) {
+    // Criando Usuário primeiro
+    const user = new User_bank();
+    user.cpf = generateValidCPF();
+    user.email = `user${i}@example.com`;
+    user.password = `password${i}`;
+
+    await dataSource.manager.save(user); // 🔹 Primeiro salvamos o usuário
+
+    // Criando Cliente vinculado ao Usuário
+    const customer = new Customer();
+    customer.fullName = `Cliente ${i}`;
+    customer.address = `Rua Exemplo, ${i}`;
+    customer.phoneNumber = `(11) 90000-000${i}`;
+    customer.user = user; // 🔹 Associamos o cliente ao usuário antes de salvar
+
+    await dataSource.manager.save(customer); // 🔹 Agora salvamos o cliente
+
+    users.push(user);
+    customers.push(customer);
+  }
+  console.log('🔑 10 Usuários e 10 Clientes criados corretamente.');
+
   // 🔹 Criar Agências
   const branches: Branch[] = [];
   for (let i = 1; i <= 10; i++) {
@@ -48,31 +91,6 @@ async function seedDatabase() {
     branches.push(branch);
   }
   console.log('🏦 10 Agências criadas.');
-
-  // 🔹 Criar Clientes
-  const customers: Customer[] = [];
-  for (let i = 1; i <= 10; i++) {
-    const customer = new Customer();
-    customer.fullName = `Cliente ${i}`;
-    customer.address = `Rua Exemplo, ${i}`;
-    customer.phoneNumber = `(11) 90000-000${i}`;
-    await dataSource.manager.save(customer);
-    customers.push(customer);
-  }
-  console.log('👤 10 Clientes criados.');
-
-  // 🔹 Criar Usuários
-  const users: User_bank[] = [];
-  for (let i = 1; i <= 10; i++) {
-    const user = new User_bank();
-    user.cpf = `512.324.345-3${i}`;
-    user.email = `user${i}@example.com`;
-    user.password = `password${i}`;
-    user.customer = customers[i - 1];
-    await dataSource.manager.save(user);
-    users.push(user);
-}
-  console.log('🔑 10 Usuários criados.');
 
   // 🔹 Criar Contas Bancárias
   const accounts: Account[] = [];
@@ -153,25 +171,6 @@ async function seedDatabase() {
     await dataSource.manager.save(investment);
   }
   console.log('📈 10 Investimentos criados.');
-
-  // 🔹 Criar Pagamentos de Boletos
-  for (let i = 1; i <= 10; i++) {
-    const billPayment = new BillPayment();
-    billPayment.account = accounts[i - 1];
-    billPayment.description = i % 2 === 0 ? 'Conta de Luz' : 'Boleto Faculdade';
-    billPayment.amount = parseFloat((Math.random() * 500 + 50).toFixed(2));
-    billPayment.dueDate = new Date(new Date().setDate(new Date().getDate() + Math.floor(Math.random() * 30)));
-    billPayment.isPaid = Math.random() > 0.5;
-
-    if (billPayment.isPaid) {
-        billPayment.paymentDate = new Date(new Date().setDate(billPayment.dueDate.getDate() - Math.floor(Math.random() * 5)));
-    } else {
-        billPayment.paymentDate = new Date();
-    }
-
-    await dataSource.manager.save(billPayment);
-  }
-  console.log('🧾 10 Pagamentos de boleto criados.');
 
   console.log('✅ Banco de dados populado com sucesso!');
   await dataSource.destroy();

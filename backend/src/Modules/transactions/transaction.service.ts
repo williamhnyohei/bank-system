@@ -22,7 +22,7 @@ export class TransactionService {
 
   async findOne(id: string): Promise<Transaction> {
     const transaction = await this.transactionRepository.findOne({
-      where: { id: Number(id) }, // 🔹 Convertendo `id` para `number`
+      where: { id }, 
       relations: ['account', 'billPayment', 'loan', 'investment'],
     });
   

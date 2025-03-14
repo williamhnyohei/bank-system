@@ -1,7 +1,14 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn } from 'typeorm';
+import { 
+  Entity, 
+  PrimaryGeneratedColumn, 
+  Column, 
+  ManyToOne, 
+  CreateDateColumn, 
+  OneToMany, 
+  JoinColumn 
+} from 'typeorm';
 import { Account } from '../accounts/account.entity';
 import { TransactionType } from '../../Enum/transactiontype.enum';
-import { OneToMany } from 'typeorm';
 import { Transaction } from '../transactions/transaction.entity';
 
 @Entity()
@@ -9,7 +16,8 @@ export class TransactionHistory {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => Account, (account) => account.transactionHistory)
+  @ManyToOne(() => Account, (account) => account.transactionHistory, { onDelete: 'CASCADE' }) // 🔹 Correção do nome da relação
+  @JoinColumn({ name: 'accountId' }) // 🔹 Define explicitamente a chave estrangeira
   account: Account;
 
   @Column({ type: 'enum', enum: TransactionType })

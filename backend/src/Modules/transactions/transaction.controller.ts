@@ -6,7 +6,7 @@ import {
     Param,
     Patch,
     Delete,
-    ParseIntPipe,
+    ParseUUIDPipe, 
   } from '@nestjs/common';
   import { TransactionService } from './transaction.service';
   import { CreateTransactionDto } from './dtos/create-transaction.dto';
@@ -27,20 +27,21 @@ import {
     }
   
     @Get(':id')
-    findOne(@Param('id', ParseIntPipe) id: string): Promise<Transaction> {
+    findOne(@Param('id') id: string): Promise<Transaction> {
       return this.transactionService.findOne(id);
     }
+    
   
     @Patch(':id')
     update(
-      @Param('id', ParseIntPipe) id: string,
+      @Param('id', ParseUUIDPipe) id: string,
       @Body() updateData: Partial<Transaction>,
     ): Promise<Transaction> {
       return this.transactionService.update(id, updateData);
     }
   
     @Delete(':id')
-    remove(@Param('id', ParseIntPipe) id: string): Promise<void> {
+    remove(@Param('id', ParseUUIDPipe) id: string): Promise<void> {
       return this.transactionService.remove(id);
     }
   }
