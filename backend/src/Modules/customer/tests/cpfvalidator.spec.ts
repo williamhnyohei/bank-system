@@ -1,5 +1,5 @@
 import { validate } from 'class-validator';
-import { CpfValidator } from '../validator/cpf.validator';
+import { CpfValidator } from '../../../Utils/cpf.validator';
 import { Validate } from 'class-validator';
 
 class TestCpfDto {

@@ -3,6 +3,7 @@ import { Repository } from 'typeorm';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { BillPayment } from '../bill_payment.entity';
 import { Account } from '../../accounts/account.entity';
+import { Transaction } from '../../transactions/transaction.entity';
 
 describe('BillPayment Entity', () => {
   let billPaymentRepository: Repository<BillPayment>;
@@ -19,6 +20,7 @@ describe('BillPayment Entity', () => {
       isPaid: dto.isPaid ?? false,
       paymentDate: dto.paymentDate || new Date('2024-01-01'),
       account: dto.account || new Account(),
+      transactions: dto.transactions || [],
     })),
     save: jest.fn().mockImplementation(async (billPayment: Partial<BillPayment>) => {
       const newBillPayment: BillPayment = {
@@ -30,6 +32,7 @@ describe('BillPayment Entity', () => {
         isPaid: billPayment.isPaid ?? false,
         paymentDate: billPayment.paymentDate || new Date('2024-01-01'),
         account: billPayment.account || new Account(),
+        transactions: billPayment.transactions || [],
       };
       mockDatabase.push(newBillPayment);
       return newBillPayment;
@@ -70,6 +73,7 @@ describe('BillPayment Entity', () => {
     billPayment.isPaid = false;
     billPayment.paymentDate = new Date('2024-01-01');
     billPayment.account = new Account();
+    billPayment.transactions = [];
 
     expect(billPayment).toBeDefined();
     expect(billPayment.id).toBe(1);
@@ -79,6 +83,7 @@ describe('BillPayment Entity', () => {
     expect(billPayment.isPaid).toBe(false);
     expect(billPayment.paymentDate).toBeInstanceOf(Date);
     expect(billPayment.account).toBeInstanceOf(Account);
+    expect(billPayment.transactions).toEqual([]);
   });
 
   it('should save a bill payment to the repository', async () => {
@@ -89,6 +94,7 @@ describe('BillPayment Entity', () => {
       isPaid: false,
       paymentDate: new Date('2024-01-01'),
       account: new Account(),
+      transactions: [],
     };
 
     const savedBillPayment = await billPaymentRepository.save(billPaymentData);
@@ -100,6 +106,7 @@ describe('BillPayment Entity', () => {
     expect(savedBillPayment.isPaid).toBe(false);
     expect(savedBillPayment.paymentDate).toBeInstanceOf(Date);
     expect(savedBillPayment.account).toBeInstanceOf(Account);
+    expect(savedBillPayment.transactions).toEqual([]);
   });
 
   it('should find all bill payments', async () => {
@@ -110,6 +117,7 @@ describe('BillPayment Entity', () => {
       isPaid: false,
       paymentDate: new Date('2024-01-01'),
       account: new Account(),
+      transactions: [],
     });
 
     await billPaymentRepository.save({
@@ -119,6 +127,7 @@ describe('BillPayment Entity', () => {
       isPaid: true,
       paymentDate: new Date('2024-03-18'),
       account: new Account(),
+      transactions: [],
     });
 
     const billPayments = await billPaymentRepository.find();
@@ -136,6 +145,7 @@ describe('BillPayment Entity', () => {
       isPaid: false,
       paymentDate: new Date('2024-01-01'),
       account: account,
+      transactions: [],
     });
 
     const foundBillPayment = await billPaymentRepository.findOne({

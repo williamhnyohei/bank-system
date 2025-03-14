@@ -3,16 +3,16 @@ if (!(globalThis as any).crypto) {
   (globalThis as any).crypto = webcrypto;
 }
 import { DataSource } from 'typeorm';
-import { User_bank } from '../../Entities/users/user.entity';
-import { Account } from '../../Entities/accounts/account.entity';
-import { Branch } from '../../Entities/branches/branch.entity';
-import { Card } from '../../Entities/card/card.entity';
-import { Customer } from '../../Entities/customer/customer.entity';
-import { Investment } from '../../Entities/investments/investment.entity';
-import { Loan } from '../../Entities/loan/loan.entity';
-import { TransactionHistory } from '../../Entities/transactionhistory/history.entity';
-import { Transaction } from '../../Entities/transactions/transaction.entity';
-import { BillPayment } from '../../Entities/bill_payments/bill_payment.entity';
+import { User_bank } from '../../Modules/users/user.entity';
+import { Account } from '../../Modules/accounts/account.entity';
+import { Branch } from '../../Modules/branches/branch.entity';
+import { Card } from '../../Modules/card/card.entity';
+import { Customer } from '../../Modules/customer/customer.entity';
+import { Investment } from '../../Modules/investments/investment.entity';
+import { Loan } from '../../Modules/loan/loan.entity';
+import { TransactionHistory } from '../../Modules/transactionhistory/history.entity';
+import { Transaction } from '../../Modules/transactions/transaction.entity';
+import { BillPayment } from '../../Modules/bill_payments/bill_payment.entity';
 import { generateValidCPF } from '../../Utils/cpfGenerator';
 import { TransactionType } from '../../Enum/transactiontype.enum';
 import 'dotenv/config';
@@ -54,7 +54,6 @@ async function seedDatabase() {
   for (let i = 1; i <= 10; i++) {
     const customer = new Customer();
     customer.fullName = `Cliente ${i}`;
-    customer.cpf = generateValidCPF();
     customer.address = `Rua Exemplo, ${i}`;
     customer.phoneNumber = `(11) 90000-000${i}`;
     await dataSource.manager.save(customer);
@@ -66,7 +65,7 @@ async function seedDatabase() {
   const users: User_bank[] = [];
   for (let i = 1; i <= 10; i++) {
     const user = new User_bank();
-    user.name = `user${i}`;
+    user.cpf = `512.324.345-3${i}`;
     user.email = `user${i}@example.com`;
     user.password = `password${i}`;
     user.customer = customers[i - 1];

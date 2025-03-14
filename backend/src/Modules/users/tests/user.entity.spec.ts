@@ -34,22 +34,20 @@ describe('User_bank Entity', () => {
 
   it('deve criar um usuário corretamente', async () => {
     const user = new User_bank();
-    user.name = 'Caio';
+    user.cpf = '512.129.580-47';
     user.email = 'caio@email.com';
     user.password = 'hashedPassword123';
 
     // Chama o método save que está mockado e retorna o próprio usuário
     const savedUser = await userRepository.save(user);
-    expect(savedUser.name).toBe('Caio');
+    expect(savedUser.cpf).toBe('512.129.580-47');
     expect(savedUser.email).toBe('caio@email.com');
     expect(savedUser.password).toBe('hashedPassword123');
   });
 
   it('não deve criar usuário com email inválido', async () => {
     const user = new User_bank();
-    user.name = 'Caio';
     user.email = 'email_invalido';
-    user.password = 'hashedPassword123';
 
     // Simula um erro no método save quando o e-mail é inválido
     userRepository.save.mockRejectedValueOnce(new Error('invalid email'));

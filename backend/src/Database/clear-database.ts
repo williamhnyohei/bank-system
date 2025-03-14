@@ -3,16 +3,16 @@ if (!(globalThis as any).crypto) {
   (globalThis as any).crypto = webcrypto;
 }
 import { DataSource } from 'typeorm';
-import { User_bank } from '../Entities/users/user.entity';
-import { Account } from '../Entities/accounts/account.entity';
-import { Branch } from '../Entities/branches/branch.entity';
-import { Card } from '../Entities/card/card.entity';
-import { Customer } from '../Entities/customer/customer.entity';
-import { Investment } from '../Entities/investments/investment.entity';
-import { Loan } from '../Entities/loan/loan.entity';
-import { TransactionHistory } from '../Entities/transactionhistory/history.entity';
-import { Transaction } from '../Entities/transactions/transaction.entity';
-import { BillPayment } from '../Entities/bill_payments/bill_payment.entity';
+import { User_bank } from '../Modules/users/user.entity';
+import { Account } from '../Modules/accounts/account.entity';
+import { Branch } from '../Modules/branches/branch.entity';
+import { Card } from '../Modules/card/card.entity';
+import { Customer } from '../Modules/customer/customer.entity';
+import { Investment } from '../Modules/investments/investment.entity';
+import { Loan } from '../Modules/loan/loan.entity';
+import { TransactionHistory } from '../Modules/transactionhistory/history.entity';
+import { Transaction } from '../Modules/transactions/transaction.entity';
+import { BillPayment } from '../Modules/bill_payments/bill_payment.entity';
 import 'dotenv/config';
 
 const dataSource = new DataSource({
