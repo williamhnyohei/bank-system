@@ -27,6 +27,9 @@ export class Customer {
   @JoinColumn({ name: 'userId' }) 
   user: User_bank;
 
+  @Column({ nullable: false })
+  userId: string; // Adiciona explicitamente a coluna para manter referência ao User
+
   @OneToMany(() => Account, (account) => account.customer, { cascade: true, onDelete: 'CASCADE' })
   accounts: Account[];
 }
