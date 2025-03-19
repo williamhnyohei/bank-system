@@ -1,8 +1,14 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, OneToOne } from 'typeorm';
-import { Account } from '../accounts/account.entity';
-import { IsNotEmpty, IsEmail, IsString, Length, Matches, Validate } from 'class-validator';
+import { 
+  Entity, 
+  PrimaryGeneratedColumn, 
+  Column, 
+  OneToMany, 
+  OneToOne, 
+  JoinColumn 
+} from 'typeorm';
+import { IsEmail, IsNotEmpty, Length, Matches } from 'class-validator';
 import { Customer } from '../customer/customer.entity';
-import { CpfValidator } from '../../Utils/cpf.validator';
+import { Account } from '../accounts/account.entity';
 
 @Entity()
 export class User_bank {
@@ -10,23 +16,24 @@ export class User_bank {
   id: string;
 
   @Column({ unique: true })
-  @IsNotEmpty()
-  @Length(11, 11, { message: 'O CPF deve conter 11 dígitos' })
-  @Matches(/^\d+$/, { message: 'O CPF deve conter apenas números' })
-  @Validate(CpfValidator, { message: 'CPF inválido' })
-  cpf: string;
-
-  @Column({ unique: true })
   @IsEmail({}, { message: 'O e-mail deve ser válido!' })
   @IsNotEmpty({ message: 'O e-mail não pode estar vazio!' })
   email: string;
-  
+
   @Column()
+  @IsNotEmpty({ message: 'A senha não pode estar vazia!' })
   password: string;
+
+  @Column({ unique: true })
+  @IsNotEmpty({ message: 'O CPF deve conter 11 dígitos' })
+  @Length(11, 11, { message: 'O CPF deve conter exatamente 11 dígitos' })
+  @Matches(/^\d+$/, { message: 'O CPF deve conter apenas números' })
+  cpf: string;
 
   @OneToMany(() => Account, (account) => account.user, { cascade: true, onDelete: 'CASCADE' })
   accounts: Account[];
 
-  @OneToOne(() => Customer, (customer) => customer.user, { cascade: true, onDelete: 'CASCADE' })
-  customer: Customer;
+  @OneToOne(() => Customer, (customer) => customer.user, { cascade: true, onDelete: 'CASCADE', eager: true })
+  @JoinColumn({ name: 'userId' })
+  customer: Customer;  
 }

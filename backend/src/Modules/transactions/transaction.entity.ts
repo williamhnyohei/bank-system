@@ -9,8 +9,8 @@ import { Investment } from '../investments/investment.entity';
 
 @Entity()
 export class Transaction {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @IsPositive({ message: 'O valor da transação deve ser positivo' })
   amount: number;

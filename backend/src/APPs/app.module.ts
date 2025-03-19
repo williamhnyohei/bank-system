@@ -15,6 +15,7 @@ import { Card } from '../Modules/card/card.entity';
 import { Loan } from '../Modules/loan/loan.entity';
 import { TransactionHistory } from '../Modules/transactionhistory/history.entity';
 import { Customer } from '../Modules/customer/customer.entity';
+import { TransactionModule } from 'src/Modules/transactions/transaction.module';
 
 @Module({
   imports: [
@@ -50,6 +51,7 @@ import { Customer } from '../Modules/customer/customer.entity';
       inject: [ConfigService],
     }),
     UserModule,
+    TransactionModule,
   ],
   controllers: [AppController],
   providers: [AppService],

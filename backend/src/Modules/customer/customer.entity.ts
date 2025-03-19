@@ -1,30 +1,32 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, OneToMany, JoinColumn } from 'typeorm';
+import { 
+  Entity, 
+  PrimaryGeneratedColumn, 
+  Column, 
+  OneToOne, 
+  OneToMany, 
+  JoinColumn 
+} from 'typeorm';
 import { User_bank } from '../users/user.entity';
 import { Account } from '../accounts/account.entity';
-import { Loan } from '../loan/loan.entity';
-import { IsNotEmpty, IsString, Length, Matches, Validate } from 'class-validator';
 
 @Entity()
 export class Customer {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-  @Column()
-  @IsNotEmpty()
-  @IsString()
+  @Column({ nullable: false })
   fullName: string;
 
-  @Column({ nullable: true })
+  @Column({ nullable: false })
   address: string;
 
-  @Column({ nullable: true })
+  @Column({ nullable: false })
   phoneNumber: string;
 
-  @OneToOne(() => User_bank, (user) => user.customer)
-  @JoinColumn()
+  @OneToOne(() => User_bank, (user) => user.customer, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'userId' }) 
   user: User_bank;
 
-  @OneToMany(() => Account, (account) => account.customer)
+  @OneToMany(() => Account, (account) => account.customer, { cascade: true, onDelete: 'CASCADE' })
   accounts: Account[];
-
 }
