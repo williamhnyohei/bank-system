@@ -8,6 +8,6 @@ import { AccountController } from './account.controller';
   imports: [TypeOrmModule.forFeature([Account])], // 🔹 Registra o repositório
   controllers: [AccountController],
   providers: [AccountService],
-  exports: [TypeOrmModule], // 🔹 Exporta para outros módulos
+  exports: [TypeOrmModule, AccountService] // 🔹 Exporta para outros módulos
 })
 export class AccountModule {}
