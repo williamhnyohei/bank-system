@@ -1,7 +1,7 @@
 import { Customer } from '../customer.entity';
 import { User_bank } from '../../users/user.entity';
 import { Account } from '../../accounts/account.entity';
-import { CreateCustomerDto } from '../customer.dto';
+import { CreateCustomerDto } from '../dto/customer.dto';
 import { validate } from 'class-validator';
 
 describe('Customer Entity', () => {

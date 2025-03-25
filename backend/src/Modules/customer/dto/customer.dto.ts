@@ -1,5 +1,5 @@
-import { IsNotEmpty, IsString, Length, Matches, Validate } from 'class-validator';
-import { CpfValidator } from '../../Utils/cpf.validator';
+import { IsNotEmpty, IsString, Length, Matches, Validate, IsUUID } from 'class-validator';
+import { CpfValidator } from '../../../Utils/cpf.validator';
 
 export class CreateCustomerDto {
   @IsNotEmpty({ message: 'O nome completo é obrigatório' })
@@ -22,4 +22,8 @@ export class CreateCustomerDto {
   @IsString({ message: 'O telefone deve ser uma string' })
   @Matches(/^\d{10,11}$/, { message: 'O telefone deve conter 10 ou 11 números' })
   phoneNumber: string;
+
+  @IsNotEmpty({ message: 'O ID do usuário é obrigatório' })
+  @IsUUID('4', { message: 'O ID do usuário deve ser um UUID válido' }) // Garante que é um UUID válido
+  userId: string;
 }
